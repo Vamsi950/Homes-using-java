@@ -22,11 +22,13 @@ export const AuthProvider = ({ children }) => {
   const login = async (username, password) => {
     try {
       const response = await api.post('/auth/login', { username, password });
-      if (response.data.token) {
+      if (response && response.data && response.data.token) {
         localStorage.setItem('token', response.data.token);
         localStorage.setItem('user', JSON.stringify(response.data));
         setUser(response.data);
         return true;
+      } else {
+        throw new Error('Invalid response from server');
       }
     } catch (error) {
       console.error('Login error', error);

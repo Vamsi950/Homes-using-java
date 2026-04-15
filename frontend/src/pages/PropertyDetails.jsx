@@ -14,7 +14,8 @@ const PropertyDetails = () => {
   const getImageUrl = (url) => {
     if (!url) return 'https://via.placeholder.com/800x500?text=No+Image';
     if (url.startsWith('http')) return url;
-    return `http://localhost:8080${url}`;
+    const baseUrl = import.meta.env.VITE_BACKEND_URL || 'http://localhost:8080';
+    return `${baseUrl}${url}`;
   };
 
   useEffect(() => {
